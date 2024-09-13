@@ -21,8 +21,13 @@ public interface BoardMapper  {
 	//게시판 작성 == 추가된 갯수 리턴 
 	//int write(String bname,String btitle,String bcontent);
 	
+	//내가 해본 것
 	//게시판 수정 == 수정된 갯수 리턴
 	//int modify(String bname,String btitle,String bcontent, int bid);
+	
+	//내가 해본 것
+	//답글 작성 == 추가된 갯수 리턴
+	//int reply(int bid, String bname, String btitle, String bcontent, int bgroup, int bstep, int bindent);
 	
 	//게시판 insert
 	int intsertBoard(@Param("board") BoardVO boardVO);
@@ -32,7 +37,8 @@ public interface BoardMapper  {
 	//게시판 update
 	int updateBoard(BoardVO boardVO);
 
+	//댓글 관련
+	public void updateShape(BoardVO boardVO);
+	public void insertReply(BoardVO boardVO);
 	
-	//답글 작성 == 추가된 갯수 리턴
-	int reply(int bid, String bname, String btitle, String bcontent, int bgroup, int bstep, int bindent);
 }

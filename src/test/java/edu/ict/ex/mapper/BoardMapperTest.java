@@ -85,16 +85,14 @@ class BoardMapperTest {
 //		System.out.println("수정된 갯수 : "+ count);
 //				
 //	}
-	
-	
-	
-	@Disabled
-	@Test
-	void testReply() {
-		
-		int count = boardMapper.reply(44,"test","test" ,"test", 77, 77, 77);
-		
-		System.out.println("추가된 갯수 : "+ count);
-	}
+//	
+//	@Disabled
+//	@Test
+//	void testReply() {
+//		
+//		int count = boardMapper.reply(44,"test","test" ,"test", 77, 77, 77);
+//		
+//		System.out.println("추가된 갯수 : "+ count);
+//	}
 
 }

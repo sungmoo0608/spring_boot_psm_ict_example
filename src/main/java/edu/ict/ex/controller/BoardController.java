@@ -94,6 +94,37 @@ public class BoardController {
 //		return "redirect:/board/list";
 //	}
 	
+	//http://localhost:8282/board/reply_view?bid=46
+//	@GetMapping("/reply_view")
+//	public String reply_view(BoardVO boardVO,Model model) {
+//		
+//		log.info("reply_view()..");
+//		
+//		model.addAttribute("reply_view",boardService.get(boardVO.getBid()));
+//		
+//		return "board/reply_view";
+//	}
+	
+	//http://localhost:8282/board/reply
+//	@PostMapping("/reply")
+//	public String reply(BoardVO boardVO) {
+//		
+//		log.info("write()..");
+//		
+//		int bid = boardVO.getBid();
+//		String bname = boardVO.getBname();
+//		String btitle = boardVO.getBtitle();
+//		String bcontent = boardVO.getBcontent();
+//		int bgroup = boardVO.getBgroup();
+//		int bstep = boardVO.getBstep();
+//		int bindent = boardVO.getBindent();
+//		
+//		boardService.replyUpdate(bid,bname,btitle,bcontent,bgroup,bstep,bindent);
+//		
+//		return "redirect:/board/list";
+//	}
+
+	
 	//http://localhost:8282/board/write
 	@PostMapping("/write")
 	public String write(BoardVO boardVO) {
@@ -115,10 +146,8 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
-
-
 	
-	//http://localhost:8282/board/reply_view?bid=46
+	//http://localhost:8282/board/reply_view?bid=55
 	@GetMapping("/reply_view")
 	public String reply_view(BoardVO boardVO,Model model) {
 		
@@ -133,17 +162,9 @@ public class BoardController {
 	@PostMapping("/reply")
 	public String reply(BoardVO boardVO) {
 		
-		log.info("write()..");
+		log.info("reply()..");
 		
-		int bid = boardVO.getBid();
-		String bname = boardVO.getBname();
-		String btitle = boardVO.getBtitle();
-		String bcontent = boardVO.getBcontent();
-		int bgroup = boardVO.getBgroup();
-		int bstep = boardVO.getBstep();
-		int bindent = boardVO.getBindent();
-		
-		boardService.replyUpdate(bid,bname,btitle,bcontent,bgroup,bstep,bindent);
+		boardService.writeReply(boardVO);
 		
 		return "redirect:/board/list";
 	}

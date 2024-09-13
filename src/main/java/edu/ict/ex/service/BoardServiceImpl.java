@@ -56,6 +56,15 @@ public class BoardServiceImpl implements BoardService {
 //		
 //		return boardMapper.modify(bname, btitle, bcontent, bid);
 //	}
+//
+//	@Override
+//	public int replyUpdate(int bid, String bname, String btitle, String bcontent, int bgroup, int bstep, int bindent) {
+//		
+//		log.info("update()..");
+//		
+//		return boardMapper.reply(bid, bname, btitle, bcontent, bgroup, bstep, bindent);
+//	}
+	
 	
 	@Override
 	public int writeBoard(BoardVO board) {
@@ -73,14 +82,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.updateBoard(board);
 	}
 
-	
+	// 순서 있는 기능이 오는 부분 = 비지니스 로직 = 기능이 있는 로직 = 반드시 서비스 단에서 해결
 	@Override
-	public int replyUpdate(int bid, String bname, String btitle, String bcontent, int bgroup, int bstep, int bindent) {
+	public void writeReply(BoardVO board) {
+		log.info("writeReply()..");
 		
-		log.info("update()..");
+		boardMapper.updateBoard(board);
+		boardMapper.insertReply(board);
 		
-		return boardMapper.reply(bid, bname, btitle, bcontent, bgroup, bstep, bindent);
 	}
+
+	
+
 
 
 	
