@@ -3,6 +3,7 @@ package edu.ict.ex.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import edu.ict.ex.vo.BoardVO;
 
@@ -16,11 +17,21 @@ public interface BoardMapper  {
 	//게시판 삭제 == 삭제된 갯수 리턴
 	int delete(int bno); 
 	
-	//게시판 작성 == 추가된 갯수 리턴
-	int write(String bname,String btitle,String bcontent);
+	//내가 해본 것
+	//게시판 작성 == 추가된 갯수 리턴 
+	//int write(String bname,String btitle,String bcontent);
 	
 	//게시판 수정 == 수정된 갯수 리턴
-	int modify(String bname,String btitle,String bcontent, int bid);
+	//int modify(String bname,String btitle,String bcontent, int bid);
+	
+	//게시판 insert
+	int intsertBoard(@Param("board") BoardVO boardVO);
+	//2개 이상 불러올떄
+	//int intsertBoard(@Param("board") BoardVO boardVO, @Param("emp") EmpVO empVO);
+	
+	//게시판 update
+	int updateBoard(BoardVO boardVO);
+
 	
 	//답글 작성 == 추가된 갯수 리턴
 	int reply(int bid, String bname, String btitle, String bcontent, int bgroup, int bstep, int bindent);

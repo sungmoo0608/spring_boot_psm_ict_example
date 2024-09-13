@@ -46,30 +46,49 @@ class BoardMapperTest {
 		
 	}
 	
-	@Disabled
 	@Test
-	void testWrite() {
+	void testUpdate() {
 		
-		int count = boardMapper.write("테스트","테스트","테스트");
+		BoardVO board = new BoardVO();
+		board.setBid(55);
+		board.setBname("모닝모닝");
+		board.setBtitle("모닝모닝");
+		board.setBcontent("모닝모닝");
 		
-		System.out.println("추가된 갯수 : "+ count);
+		int count = boardMapper.updateBoard(board);
 		
-//		if(boardMapper.read(16)!=null) {
-//			System.out.println("제대로 추가되었음");
-//		}
+		System.out.println("업데이트 갯수 : "+ count);
+		
+		System.out.println(boardMapper.read(55));
 		
 	}
 	
-	@Disabled
-	@Test
-	void testModify() {
-		
-		int count = boardMapper.modify("테스트","테스트","테스트",44);
-		
-		System.out.println("수정된 갯수 : "+ count);
-				
-	}
 	
+	
+	
+//	@Disabled
+//	@Test
+//	void testWrite() {
+//		
+//		int count = boardMapper.write("테스트","테스트","테스트");
+//		
+//		System.out.println("추가된 갯수 : "+ count);
+//		
+//	}
+//	
+//	@Disabled
+//	@Test
+//	void testModify() {
+//		
+//		int count = boardMapper.modify("테스트","테스트","테스트",44);
+//		
+//		System.out.println("수정된 갯수 : "+ count);
+//				
+//	}
+	
+	
+	
+	@Disabled
 	@Test
 	void testReply() {
 		

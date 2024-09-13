@@ -63,15 +63,44 @@ public class BoardController {
 	}
 	
 	//http://localhost:8282/board/write
+	
+//  내가 해본 것
+//	@PostMapping("/write")
+//	public String write(BoardVO boardVO) {
+//		
+//		log.info("write()..");
+//		
+//		String bname = boardVO.getBname();
+//		String btitle = boardVO.getBtitle();
+//		String bcontent = boardVO.getBcontent();
+//		boardService.insert(bname,btitle,bcontent);
+//		
+//		return "redirect:/board/list";
+//	}
+	
+	//http://localhost:8282/board/modify
+//	@PostMapping("/modify")
+//	public String modify(BoardVO boardVO) {
+//		
+//		log.info("modify()..");
+//		
+//		String bname = boardVO.getBname();
+//		String btitle = boardVO.getBtitle();
+//		String bcontent = boardVO.getBcontent();
+//		int bid = boardVO.getBid();
+//		
+//		boardService.update(bname,btitle,bcontent,bid);
+//		
+//		return "redirect:/board/list";
+//	}
+	
+	//http://localhost:8282/board/write
 	@PostMapping("/write")
 	public String write(BoardVO boardVO) {
 		
 		log.info("write()..");
 		
-		String bname = boardVO.getBname();
-		String btitle = boardVO.getBtitle();
-		String bcontent = boardVO.getBcontent();
-		boardService.insert(bname,btitle,bcontent);
+		boardService.writeBoard(boardVO);
 		
 		return "redirect:/board/list";
 	}
@@ -82,15 +111,12 @@ public class BoardController {
 		
 		log.info("modify()..");
 		
-		String bname = boardVO.getBname();
-		String btitle = boardVO.getBtitle();
-		String bcontent = boardVO.getBcontent();
-		int bid = boardVO.getBid();
-		
-		boardService.update(bname,btitle,bcontent,bid);
+		boardService.modifyBoard(boardVO);
 		
 		return "redirect:/board/list";
 	}
+
+
 	
 	//http://localhost:8282/board/reply_view?bid=46
 	@GetMapping("/reply_view")

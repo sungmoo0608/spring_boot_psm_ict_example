@@ -40,22 +40,39 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.delete(bno);
 	}
 
+//  내가 해본 것
+//	@Override
+//	public int insert(String bname, String btitle, String bcontent) {
+//		
+//		log.info("insert()..");
+//		
+//		return boardMapper.write(bname, btitle, bcontent);
+//	}
+//	
+//	@Override
+//	public int update(String bname, String btitle, String bcontent, int bid) {
+//		
+//		log.info("update()..");
+//		
+//		return boardMapper.modify(bname, btitle, bcontent, bid);
+//	}
+	
 	@Override
-	public int insert(String bname, String btitle, String bcontent) {
-		
-		log.info("insert()..");
-		
-		return boardMapper.write(bname, btitle, bcontent);
-	}
+	public int writeBoard(BoardVO board) {
 
-	@Override
-	public int update(String bname, String btitle, String bcontent, int bid) {
+		log.info("writeBoard()..");
 		
-		log.info("update()..");
-		
-		return boardMapper.modify(bname, btitle, bcontent, bid);
+		return boardMapper.intsertBoard(board);
 	}
 	
+	@Override
+	public int modifyBoard(BoardVO board) {
+
+		log.info("modifyBoard()..");
+		
+		return boardMapper.updateBoard(board);
+	}
+
 	
 	@Override
 	public int replyUpdate(int bid, String bname, String btitle, String bcontent, int bgroup, int bstep, int bindent) {
@@ -64,7 +81,8 @@ public class BoardServiceImpl implements BoardService {
 		
 		return boardMapper.reply(bid, bname, btitle, bcontent, bgroup, bstep, bindent);
 	}
-	
+
+
 	
 	
 
