@@ -29,6 +29,11 @@ public class BoardServiceImpl implements BoardService {
 		
 		log.info("get()..");
 		
+		BoardVO board = new BoardVO();
+		board.setBid(bno);
+		
+		boardMapper.upHit(board);
+		
 		return boardMapper.read(bno);
 	}
 
@@ -38,6 +43,39 @@ public class BoardServiceImpl implements BoardService {
 		log.info("remove()..");
 
 		return boardMapper.delete(bno);
+	}
+	
+	@Override
+	public int writeBoard(BoardVO board) {
+
+		log.info("writeBoard()..");
+		
+		return boardMapper.intsertBoard(board);
+	}
+	
+	@Override
+	public int modifyBoard(BoardVO board) {
+
+		log.info("modifyBoard()..");
+		
+		return boardMapper.updateBoard(board);
+	}
+
+	// 순서 있는 기능이 오는 부분 = 비지니스 로직 = 기능이 있는 로직 = 반드시 서비스 단에서 해결
+	@Override
+	public void writeReply(BoardVO board) {
+		log.info("writeReply()..");
+		
+		boardMapper.updateShape(board);
+		boardMapper.insertReply(board);
+		
+	}
+
+	@Override
+	public int upHit(BoardVO board) {
+		log.info("upHit()..");
+		
+		return boardMapper.upHit(board);
 	}
 
 //  내가 해본 것
@@ -65,38 +103,4 @@ public class BoardServiceImpl implements BoardService {
 //		return boardMapper.reply(bid, bname, btitle, bcontent, bgroup, bstep, bindent);
 //	}
 	
-	
-	@Override
-	public int writeBoard(BoardVO board) {
-
-		log.info("writeBoard()..");
-		
-		return boardMapper.intsertBoard(board);
-	}
-	
-	@Override
-	public int modifyBoard(BoardVO board) {
-
-		log.info("modifyBoard()..");
-		
-		return boardMapper.updateBoard(board);
-	}
-
-	// 순서 있는 기능이 오는 부분 = 비지니스 로직 = 기능이 있는 로직 = 반드시 서비스 단에서 해결
-	@Override
-	public void writeReply(BoardVO board) {
-		log.info("writeReply()..");
-		
-		boardMapper.updateBoard(board);
-		boardMapper.insertReply(board);
-		
-	}
-
-	
-
-
-
-	
-	
-
 }

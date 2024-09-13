@@ -20,5 +20,6 @@ public interface BoardService {
 	// 댓글
 	void writeReply(BoardVO board);
 
-	
+	// 히트
+	int upHit(BoardVO board);
 }

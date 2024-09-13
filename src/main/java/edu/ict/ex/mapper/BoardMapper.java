@@ -36,9 +36,14 @@ public interface BoardMapper  {
 	
 	//게시판 update
 	int updateBoard(BoardVO boardVO);
+	
+	//조회수 관련
+	int upHit(BoardVO boardVO);
 
 	//댓글 관련
 	public void updateShape(BoardVO boardVO);
 	public void insertReply(BoardVO boardVO);
+	
+
 	
 }
