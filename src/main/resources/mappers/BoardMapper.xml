@@ -22,27 +22,6 @@
     	]]>
     </delete>
     
-	<!-- 내가 해본것     
-	<update id="write">
-    	<![CDATA[
-    		insert into mvc_board (bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) 
-    		values (mvc_board_seq.nextval, #{bname}, #{btitle}, #{bcontent}, 0, mvc_board_seq.currval, 0, 0)
-    	]]>
-    </update>
-    
-    <update id="modify">
-    	<![CDATA[
-    		update mvc_board set bName = #{bname} , bTitle = #{btitle} , bContent = #{bcontent} where bId = #{bid}
-    	]]>
-    </update>
-    
-    <update id="reply">
-    	<![CDATA[
-    		insert into mvc_board (bId, bName, bTitle, bContent, bGroup, bStep, bIndent) values (mvc_board_seq.nextval, #{bname}, #{btitle}, #{bcontent}, #{bgroup}, #{bstep}, #{bindent})
-    	]]>
-    </update> 
-    -->
-    
     <insert id="intsertBoard">
     	<![CDATA[
     		insert into mvc_board (bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) 
@@ -75,5 +54,41 @@
     	]]>
     </update>
     
+    <select id="getTotalCount" resultType="int">
+    	<![CDATA[
+        	select count(*) from mvc_board
+        ]]>
+    </select>
     
+    <select id="getListWithPaging" resultType="BoardVO">
+    	<![CDATA[
+        SELECT * FROM (
+		     	SELECT ROWNUM AS RNUM, A.* FROM (
+		                    SELECT *  FROM mvc_board order by bgroup desc, bstep asc
+		   	 	) A WHERE ROWNUM <= #{pageNum} * #{amount}
+			) WHERE RNUM > (#{pageNum}-1) * #{amount}
+        ]]>
+    </select>
+    
+	<!-- 내가 해본것     
+	<update id="write">
+    	<![CDATA[
+    		insert into mvc_board (bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) 
+    		values (mvc_board_seq.nextval, #{bname}, #{btitle}, #{bcontent}, 0, mvc_board_seq.currval, 0, 0)
+    	]]>
+    </update>
+    
+    <update id="modify">
+    	<![CDATA[
+    		update mvc_board set bName = #{bname} , bTitle = #{btitle} , bContent = #{bcontent} where bId = #{bid}
+    	]]>
+    </update>
+    
+    <update id="reply">
+    	<![CDATA[
+    		insert into mvc_board (bId, bName, bTitle, bContent, bGroup, bStep, bIndent) values (mvc_board_seq.nextval, #{bname}, #{btitle}, #{bcontent}, #{bgroup}, #{bstep}, #{bindent})
+    	]]>
+    </update> 
+    -->
+  
 </mapper>

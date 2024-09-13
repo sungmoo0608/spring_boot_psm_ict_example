@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.ict.ex.mapper.BoardMapper;
+import edu.ict.ex.page.Criteria;
 import edu.ict.ex.vo.BoardVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -76,6 +77,19 @@ public class BoardServiceImpl implements BoardService {
 		log.info("upHit()..");
 		
 		return boardMapper.upHit(board);
+	}
+
+	@Override
+	public int getTotal() {
+		log.info("getTotal()..");
+		
+		return boardMapper.getTotalCount();
+	}
+
+	@Override
+	public List<BoardVO> getListWithPaging(Criteria cri) {
+		
+		return boardMapper.getListWithPaging(cri);
 	}
 
 //  내가 해본 것

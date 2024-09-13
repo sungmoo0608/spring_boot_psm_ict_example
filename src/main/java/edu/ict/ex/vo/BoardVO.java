@@ -1,7 +1,6 @@
 package edu.ict.ex.vo;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

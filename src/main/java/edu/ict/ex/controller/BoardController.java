@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.ict.ex.page.Criteria;
+import edu.ict.ex.page.PageVO;
 import edu.ict.ex.service.BoardService;
 import edu.ict.ex.vo.BoardVO;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,19 @@ public class BoardController {
 		return "board/list";
 	}
 	
+	// 페이징 설정된 리스트
+	@GetMapping("/list2")
+	public String list2(Criteria criteria, Model model) {
+		log.info("list2().. ");
+			
+		model.addAttribute("boards", boardService.getListWithPaging(criteria));
+		int total = boardService.getTotal();
+		model.addAttribute("pageMaker", new PageVO(criteria,total));
+		
+		return "board/list2";
+	}
+	
+	
 	//http://localhost:8282/board/content_view?bid=5
 	@GetMapping("/content_view")
 	public String content_view(BoardVO boardVO,Model model) {
@@ -50,7 +65,7 @@ public class BoardController {
 		int bid = boardVO.getBid();
 		boardService.remove(bid);
 		
-		return "redirect:/board/list";
+		return "redirect:/board/list2";
 	}
 	
 	//http://localhost:8282/board/write_view
@@ -63,8 +78,53 @@ public class BoardController {
 	}
 	
 	//http://localhost:8282/board/write
+	@PostMapping("/write")
+	public String write(BoardVO boardVO) {
+		
+		log.info("write()..");
+		
+		boardService.writeBoard(boardVO);
+		
+		return "redirect:/board/list2";
+	}
+	
+	//http://localhost:8282/board/modify
+	@PostMapping("/modify")
+	public String modify(BoardVO boardVO) {
+		
+		log.info("modify()..");
+		
+		boardService.modifyBoard(boardVO);
+		
+		return "redirect:/board/list2";
+	}
+	
+	//http://localhost:8282/board/reply_view?bid=55
+	@GetMapping("/reply_view")
+	public String reply_view(BoardVO boardVO,Model model) {
+		
+		log.info("reply_view()..");
+		
+		model.addAttribute("reply_view",boardService.get(boardVO.getBid()));
+		
+		return "board/reply_view";
+	}
+	
+	//http://localhost:8282/board/reply
+	@PostMapping("/reply")
+	public String reply(BoardVO boardVO) {
+		
+		log.info("reply()..");
+		
+		boardService.writeReply(boardVO);
+		
+		return "redirect:/board/list2";
+	}
+
+	
 	
 //  내가 해본 것
+	//	http://localhost:8282/board/write	
 //	@PostMapping("/write")
 //	public String write(BoardVO boardVO) {
 //		
@@ -78,7 +138,7 @@ public class BoardController {
 //		return "redirect:/board/list";
 //	}
 	
-	//http://localhost:8282/board/modify
+	//	http://localhost:8282/board/modify
 //	@PostMapping("/modify")
 //	public String modify(BoardVO boardVO) {
 //		
@@ -123,50 +183,5 @@ public class BoardController {
 //		
 //		return "redirect:/board/list";
 //	}
-
-	
-	//http://localhost:8282/board/write
-	@PostMapping("/write")
-	public String write(BoardVO boardVO) {
-		
-		log.info("write()..");
-		
-		boardService.writeBoard(boardVO);
-		
-		return "redirect:/board/list";
-	}
-	
-	//http://localhost:8282/board/modify
-	@PostMapping("/modify")
-	public String modify(BoardVO boardVO) {
-		
-		log.info("modify()..");
-		
-		boardService.modifyBoard(boardVO);
-		
-		return "redirect:/board/list";
-	}
-	
-	//http://localhost:8282/board/reply_view?bid=55
-	@GetMapping("/reply_view")
-	public String reply_view(BoardVO boardVO,Model model) {
-		
-		log.info("reply_view()..");
-		
-		model.addAttribute("reply_view",boardService.get(boardVO.getBid()));
-		
-		return "board/reply_view";
-	}
-	
-	//http://localhost:8282/board/reply
-	@PostMapping("/reply")
-	public String reply(BoardVO boardVO) {
-		
-		log.info("reply()..");
-		
-		boardService.writeReply(boardVO);
-		
-		return "redirect:/board/list";
-	}
 
 }
