@@ -3,7 +3,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.ict.ex.mapper.EmpMapper">
-    <select id="getList" resultType="edu.ict.ex.vo.EmpVO">
-        select * from emp
-    </select>
+
+	<select id="getList" resultType="edu.ict.ex.vo.EmpVO">
+		<![CDATA[
+			select * from emp
+		]]>
+	</select>
+	
+	<insert id="insert">
+    	<![CDATA[
+    		INSERT INTO EMP VALUES (#{empno},#{ename},#{job},#{mgr},#{hiredate2},#{sal},#{comm},#{deptno})
+    	]]>
+	</insert>
 </mapper>

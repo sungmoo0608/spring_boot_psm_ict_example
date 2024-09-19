@@ -33,5 +33,9 @@
 		</tr>
 		</c:forEach>
 	</table>
+	<tr>
+    	<td colspan="5"><a href="${pageContext.request.contextPath}/emp/insert_view">입력</a></td>
+    </tr> 
+	
 </body>
 </html>

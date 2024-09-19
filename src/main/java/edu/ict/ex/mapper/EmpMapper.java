@@ -11,5 +11,6 @@ import edu.ict.ex.vo.EmpVO;
 public interface EmpMapper  {
 	
 	public List<EmpVO> getList();
+	public int insert(EmpVO empVO);
 	
 }
