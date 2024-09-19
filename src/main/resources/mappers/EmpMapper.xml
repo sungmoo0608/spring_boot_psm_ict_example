@@ -32,4 +32,37 @@
         ]]>
     </select>
     
+    <select id="getEmpDeptList" resultType="edu.ict.ex.vo.EmpVO">
+		<![CDATA[
+			select * from emp, dept where dept.deptno = emp.deptno order by empno
+		]]>
+	</select>
+	
+	<!-- resultMap : 자바 객체와 DB테이블을 매핑시키는 것 -->
+	<resultMap id="deptMap" type="DeptEmpVO">
+		<result property="deptno" column="deptno"/>
+		<result property="dname" column="dname"/>
+		<result property="loc" column="loc"/>
+		<!-- 일대다 일 경우 -->
+		<collection property="empList" resultMap="empMap" ></collection>
+	</resultMap>
+	
+	<resultMap id="empMap" type="EmpVO">
+		<result property="empno" column="empno"/>
+		<result property="ename" column="ename"/>
+		<result property="job" column="job"/>
+		<result property="mgr" column="mgr"/>
+		<result property="hiredate" column="hiredate"/>
+		<result property="sal" column="sal"/>
+		<result property="comm" column="comm"/>
+		<result property="deptno" column="deptno"/>
+	</resultMap>
+	
+	<!--  절대 resultType 으로 하지 말것 -->
+	<select id="getDeptEmpList" resultMap="deptMap">
+		<![CDATA[
+			select * from emp, dept where dept.deptno = emp.deptno order by empno
+		]]>
+	</select>
+    
 </mapper>
