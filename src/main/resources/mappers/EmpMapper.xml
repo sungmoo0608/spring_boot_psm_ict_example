@@ -15,4 +15,21 @@
     		INSERT INTO EMP VALUES (#{empno},#{ename},#{job},#{mgr},#{hiredate2},#{sal},#{comm},#{deptno})
     	]]>
 	</insert>
+	
+	<select id="getTotalCount" resultType="int">
+    	<![CDATA[
+        	select count(*) from emp
+        ]]>
+    </select>
+    
+    <select id="getListWithPaging" resultType="EmpVO">
+    	<![CDATA[
+        SELECT * FROM (
+		     	SELECT ROWNUM AS RNUM, A.* FROM (
+		                    SELECT *  FROM emp order by empno
+		   	 	) A WHERE ROWNUM <= #{pageNum} * #{amount}
+			) WHERE RNUM > (#{pageNum}-1) * #{amount}
+        ]]>
+    </select>
+    
 </mapper>

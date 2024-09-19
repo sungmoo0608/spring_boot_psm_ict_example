@@ -1,6 +1,6 @@
 package edu.ict.ex.vo;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +31,7 @@ public class EmpVO  {
 	private String ename;
 	private String job;
 	private int mgr;
-	private Date hiredate;
+	private Timestamp hiredate;
 	private int sal;
 	private int comm;
 	private int deptno;

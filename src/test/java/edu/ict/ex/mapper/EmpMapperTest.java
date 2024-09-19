@@ -1,9 +1,13 @@
 package edu.ict.ex.mapper;
 
+import java.util.List;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import edu.ict.ex.page.Criteria;
 import edu.ict.ex.vo.EmpVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,6 +18,7 @@ class EmpMapperTest {
    @Autowired
    private EmpMapper mapper;
 
+   @Disabled
    @Test
    void testGetList() {
       System.out.println(mapper.getList());
@@ -23,7 +28,7 @@ class EmpMapperTest {
       }      
    }
    
-   
+   @Disabled
    @Test
    void testInsert() {
       
@@ -46,5 +51,20 @@ class EmpMapperTest {
          System.out.println(vo);
       }      
    }
+   
+	@Test
+	void testGetListWithPaging() {
+		
+		Criteria criteria = new Criteria();
+		
+		criteria.setAmount(10);
+		criteria.setPageNum(1);
+		
+		List<EmpVO> list = mapper.getListWithPaging(criteria);
+		System.out.println(list);
+
+	}
+   
+   
 
 }
