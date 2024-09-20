@@ -36,35 +36,14 @@ public class EmpController {
 		return "emp/list";
 	}
 	
-	@GetMapping("/list5")
-	public String list5(Model model) {
+	@GetMapping("/list6")
+	public String list6(Model model) {
 		
-		log.info("list5()..");
+		log.info("list6()..");
 		
-		model.addAttribute("empList",empService.getEmpOneDeptList());
+		model.addAttribute("empList",empService.getEmpSalgrade());
 		
-		return "emp/list5";
-	}
-	
-	
-	@GetMapping("/list4")
-	public String list4(Model model) {
-		
-		log.info("list4()..");
-		
-		model.addAttribute("empDeptList",empService.getDeptEmpList());
-		
-		return "emp/list4";
-	}
-	
-	@GetMapping("/list3")
-	public String list3(Model model) {
-		
-		log.info("list3()..");
-		
-		model.addAttribute("empList",empService.getEmpDeptList());
-		
-		return "emp/list3";
+		return "emp/list6";
 	}
 	
 	// 페이징 설정된 리스트

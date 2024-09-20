@@ -10,6 +10,7 @@ import edu.ict.ex.page.Criteria;
 import edu.ict.ex.vo.DeptEmpVO;
 import edu.ict.ex.vo.EmpDeptVO;
 import edu.ict.ex.vo.EmpVO;
+import edu.ict.ex.vo.join.EmpSalgradeVO;
 
 //Command 계층 = 비지니스 로직
 @Service
@@ -40,18 +41,8 @@ public class EmpService {
 		return empMapper.getListWithPaging(cri);
 	}
 
-	//조인 처리한 결과
-	public List<EmpVO> getEmpDeptList() {      
-		return empMapper.getEmpDeptList();
-	}
-	
-	//조인 처리한 결과2
-	public List<DeptEmpVO> getDeptEmpList() {      
-		return empMapper.getDeptEmpList();
-	}
-	
-	//1:1 처리한 결과
-	public List<EmpDeptVO> getEmpOneDeptList() {      
-		return empMapper.getEmpOneDeptList();
+	//조인 처리 - 추천 방법
+	public List<EmpSalgradeVO> getEmpSalgrade() {      
+		return empMapper.getEmpSalgrade();
 	}
 }

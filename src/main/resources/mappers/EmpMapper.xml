@@ -1,97 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.ict.ex.mapper.EmpMapper">
-
-	<select id="getList" resultType="edu.ict.ex.vo.EmpVO">
-		<![CDATA[
-			select * from emp
-		]]>
-	</select>
-	
-	<insert id="insert">
+    <select id="getList" resultType="edu.ict.ex.vo.EmpVO">
+   		<![CDATA[
+        	select * from emp order by empno
+        ]]>  
+    </select>
+    
+	<!-- INSERT INTO EMP  VALUES (1111,'홍길동','CLERK',7369,'2024-09-24', 800,8000,10); -->
+    <insert id="insert">
     	<![CDATA[
-    		INSERT INTO EMP VALUES (#{empno},#{ename},#{job},#{mgr},#{hiredate2},#{sal},#{comm},#{deptno})
-    	]]>
-	</insert>
-	
-	<select id="getTotalCount" resultType="int">
-    	<![CDATA[
-        	select count(*) from emp
+        	INSERT INTO EMP  VALUES (#{empno},#{ename},#{job},#{mgr},#{hiredate2},#{sal},#{comm},#{deptno})
+		]]> 
+    </insert>
+    
+    <select id="getTotalCount" resultType="int">
+       <![CDATA[
+           select count(*) from emp
         ]]>
     </select>
     
     <select id="getListWithPaging" resultType="EmpVO">
-    	<![CDATA[
-        SELECT * FROM (
-		     	SELECT ROWNUM AS RNUM, A.* FROM (
-		                    SELECT *  FROM emp order by empno
-		   	 	) A WHERE ROWNUM <= #{pageNum} * #{amount}
-			) WHERE RNUM > (#{pageNum}-1) * #{amount}
+       <![CDATA[
+	        SELECT * FROM (
+	              SELECT ROWNUM AS RNUM, A.* FROM (
+	                          SELECT *  FROM emp order by empno
+	                ) A WHERE ROWNUM <= #{pageNum} * #{amount}
+	         ) WHERE RNUM > (#{pageNum}-1) * #{amount}
         ]]>
     </select>
-    
-    <select id="getEmpDeptList" resultType="edu.ict.ex.vo.EmpVO">
-		<![CDATA[
-			select * from emp, dept where dept.deptno = emp.deptno order by empno
-		]]>
-	</select>
+
+	<!-- ===================== 추천 방법 ============================== -->
 	
-	<!-- ============================================================================== -->
-	<!-- resultMap : 자바 객체와 DB테이블을 매핑시키는 것 -->
-	<resultMap id="deptMap" type="DeptEmpVO">
-		<result property="deptno" column="deptno"/>
-		<result property="dname" column="dname"/>
-		<result property="loc" column="loc"/>
-		<!-- 일대다 일 경우 -->
-		<collection property="empList" resultMap="empMap" ></collection>
+	<resultMap id="deptMap" type="DeptVO">
+		<result property="deptno" column="deptno" />
+		<result property="loc" column="loc" />
+		<result property="dname" column="dname" />
 	</resultMap>
-	
+
 	<resultMap id="empMap" type="EmpVO">
-		<result property="empno" column="empno"/>
-		<result property="ename" column="ename"/>
-		<result property="job" column="job"/>
-		<result property="mgr" column="mgr"/>
-		<result property="hiredate" column="hiredate"/>
-		<result property="sal" column="sal"/>
-		<result property="comm" column="comm"/>
-		<result property="deptno" column="deptno"/>
+		<id property="empno" column="empno" />
+		<result property="ename" column="ename" />
+		<result property="job" column="job" />
+		<result property="mgr" column="mgr" />
+		<result property="hiredate" column="hiredate" />
+		<result property="sal" column="sal" />
+		<result property="comm" column="comm" />
+		<result property="deptno" column="deptno" />
+	</resultMap>
+
+	<resultMap id="salgradeMap" type="SalgradeVO">
+		<result property="grade" column="grade" />
+		<result property="losal" column="losal" />
+		<result property="hisal" column="hisal" />
 	</resultMap>
 	
-	<!--  절대 resultType 으로 하지 말것 -->
-	<select id="getDeptEmpList" resultMap="deptMap">
-		<![CDATA[
-			select * from emp, dept where dept.deptno = emp.deptno order by empno
+	<resultMap id="empSalgradeMap" type="EmpSalgradeVO">
+		<association property="emp" resultMap="empMap"></association>
+		<association property="salGrade" resultMap="salgradeMap"></association>
+	</resultMap>
+
+    <select id="getEmpSalgrade" resultMap="empSalgradeMap">
+       <![CDATA[
+			select * from emp e,  salgrade s where e.sal between s.losal and s.hisal
 		]]>
-	</select>
+    </select>
 	
-	
-	<!-- ============================================================================== -->
-	<!-- EMP DEPT 일대일 매핑 -->
-	
-	<resultMap id="deptOneMap" type="DeptVO">
-		<result property="deptno" column="deptno"/>
-		<result property="dname" column="dname"/>
-		<result property="loc" column="loc"/>
-    </resultMap>
     
-    <resultMap id="empDeptMap" type="EmpDeptVO">
-		<result property="empno" column="empno"/>
-		<result property="ename" column="ename"/>
-		<result property="job" column="job"/>
-		<result property="mgr" column="mgr"/>
-		<result property="hiredate" column="hiredate"/>
-		<result property="sal" column="sal"/>
-		<result property="comm" column="comm"/>
-		<result property="deptno" column="deptno"/>
-		<association property="dept" resultMap="deptOneMap"></association>
-	</resultMap>
-	
-	<!--  절대 resultType 으로 하지 말것 -->
-	<select id="getEmpOneDeptList" resultMap="empDeptMap">
-		<![CDATA[
-			select * from emp, dept where dept.deptno = emp.deptno order by empno
-		]]>
-	</select>
 </mapper>
