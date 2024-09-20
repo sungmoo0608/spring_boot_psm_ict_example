@@ -94,4 +94,67 @@
 			select * from emp, dept where dept.deptno = emp.deptno order by empno
 		]]>
 	</select>
+	
+	<!-- ============================================================================== -->
+	<!-- EMP SALGRADE 일대일 매핑 -->
+	
+	<resultMap id="salOneMap" type="SalgradeVO">
+		<result property="grade" column="grade"/>
+		<result property="losal" column="losal"/>
+		<result property="hisal" column="hisal"/>
+    </resultMap>
+    
+    <resultMap id="empSalMap" type="EmpSalVO">
+		<result property="empno" column="empno"/>
+		<result property="ename" column="ename"/>
+		<result property="job" column="job"/>
+		<result property="mgr" column="mgr"/>
+		<result property="hiredate" column="hiredate"/>
+		<result property="sal" column="sal"/>
+		<result property="comm" column="comm"/>
+		<result property="deptno" column="deptno"/>
+		<association property="salGrade" resultMap="salOneMap"></association>
+	</resultMap>
+	
+	<!--  절대 resultType 으로 하지 말것 -->
+	<select id="getEmpOneSalList" resultMap="empSalMap">
+		<![CDATA[
+			select * from emp, salgrade where sal between losal and hisal order by ename
+		]]>
+	</select>
+	
+	<!-- ============================================================================== -->
+	<!-- DEPT EMP SALGRADE 일대일 매핑 -->
+	
+	<resultMap id="depOneMap" type="DeptVO">
+		<result property="deptno" column="deptno"/>
+		<result property="dname" column="dname"/>
+		<result property="loc" column="loc"/>
+    </resultMap>
+	
+	<resultMap id="salMap" type="SalgradeVO">
+		<result property="grade" column="grade"/>
+		<result property="losal" column="losal"/>
+		<result property="hisal" column="hisal"/>
+    </resultMap>
+    
+    <resultMap id="deptEmpSalMap" type="EmpDeptSalVO">
+    	<result property="empno" column="empno"/>
+		<result property="ename" column="ename"/>
+		<result property="job" column="job"/>
+		<result property="mgr" column="mgr"/>
+		<result property="hiredate" column="hiredate"/>
+		<result property="sal" column="sal"/>
+		<result property="comm" column="comm"/>
+		<result property="deptno" column="deptno"/>
+		<association property="dept" resultMap="depOneMap"></association>
+		<association property="salGrade" resultMap="salMap"></association>
+	</resultMap>
+	
+	<!--  절대 resultType 으로 하지 말것 -->
+	<select id="getDeptEmpSalList" resultMap="deptEmpSalMap">
+		<![CDATA[
+			select * from emp, dept, salgrade where dept.deptno = emp.deptno and (sal between losal and hisal) order by ename
+		]]>
+	</select>
 </mapper>
