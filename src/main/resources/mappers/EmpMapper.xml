@@ -65,4 +65,44 @@
 		]]>
 	</select>
     
+    <!-- resultMap : 자바 객체와 DB테이블을 매핑시키는 것 -->
+	<resultMap id="salEmpMap" type="SalgradeEmpVO">
+		<result property="grade" column="grade"/>
+		<result property="losal" column="losal"/>
+		<result property="hisal" column="hisal"/>
+		<!-- 일대다 일 경우 -->
+		<collection property="empList" resultMap="empMap" ></collection>
+	</resultMap>
+	
+	<!--  절대 resultType 으로 하지 말것 -->
+	<select id="getSalgradeEmpList" resultMap="salEmpMap">
+		<![CDATA[
+			select ename,sal,grade from emp, salgrade where sal between losal and hisal order by sal desc
+		]]>
+	</select>
+	
+	    <!-- resultMap : 자바 객체와 DB테이블을 매핑시키는 것 -->
+	<resultMap id="deptEmpSalMap" type="DeptEmpSalVO">
+		<result property="deptno" column="deptno"/>
+		<result property="dname" column="dname"/>
+		<result property="loc" column="loc"/>
+		<!-- 일대다 일 경우 -->
+		<collection property="empList" resultMap="empMap" ></collection>
+		<collection property="salList" resultMap="salMap" ></collection>
+	</resultMap>
+	
+	<resultMap id="salMap" type="SalgradeVO">
+		<result property="grade" column="grade"/>
+		<result property="losal" column="losal"/>
+		<result property="hisal" column="hisal"/>
+	</resultMap>
+	
+	<!--  절대 resultType 으로 하지 말것 -->
+	<select id="getDeptEmpSalList" resultMap="deptEmpSalMap">
+		<![CDATA[
+			select * from emp, dept, salgrade where dept.deptno = emp.deptno and (sal between losal and hisal) order by grade
+		]]>
+	</select>
+    
+    
 </mapper>

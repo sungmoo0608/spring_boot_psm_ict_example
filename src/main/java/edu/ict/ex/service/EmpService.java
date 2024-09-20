@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import edu.ict.ex.mapper.EmpMapper;
 import edu.ict.ex.page.Criteria;
+import edu.ict.ex.vo.DeptEmpSalVO;
 import edu.ict.ex.vo.DeptEmpVO;
 import edu.ict.ex.vo.EmpVO;
+import edu.ict.ex.vo.SalgradeEmpVO;
 
 //Command 계층 = 비지니스 로직
 @Service
@@ -47,5 +49,15 @@ public class EmpService {
 	//조인 처리한 결과2
 	public List<DeptEmpVO> getDeptEmpList() {      
 		return empMapper.getDeptEmpList();
+	}
+	
+	//조인 처리한 결과 -SalgradeEmp
+	public List<SalgradeEmpVO> getSalgradeEmpList() {      
+		return empMapper.getSalgradeEmpList();
+	}
+	
+	//조인 처리한 결과 - DeptEmpSalVO
+	public List<DeptEmpSalVO> getDeptEmpSalList() {      
+			return empMapper.getDeptEmpSalList();
 	}
 }

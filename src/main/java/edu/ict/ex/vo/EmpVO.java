@@ -1,6 +1,7 @@
 package edu.ict.ex.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,5 +41,6 @@ public class EmpVO  {
 	
 	private String dname;	//부서명
 	private String loc;		//위치
+	
 
 }
