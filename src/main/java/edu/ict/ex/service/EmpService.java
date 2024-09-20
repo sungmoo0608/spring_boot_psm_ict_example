@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import edu.ict.ex.mapper.EmpMapper;
 import edu.ict.ex.page.Criteria;
 import edu.ict.ex.vo.DeptEmpVO;
+import edu.ict.ex.vo.EmpDeptVO;
 import edu.ict.ex.vo.EmpVO;
 
 //Command 계층 = 비지니스 로직
@@ -47,5 +48,10 @@ public class EmpService {
 	//조인 처리한 결과2
 	public List<DeptEmpVO> getDeptEmpList() {      
 		return empMapper.getDeptEmpList();
+	}
+	
+	//1:1 처리한 결과
+	public List<EmpDeptVO> getEmpOneDeptList() {      
+		return empMapper.getEmpOneDeptList();
 	}
 }
