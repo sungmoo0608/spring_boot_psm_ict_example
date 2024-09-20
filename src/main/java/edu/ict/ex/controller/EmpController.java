@@ -36,6 +36,16 @@ public class EmpController {
 		return "emp/list";
 	}
 	
+	@GetMapping("/list7")
+	public String list7(Model model) {
+		
+		log.info("list7()..");
+		
+		model.addAttribute("empList",empService.getEmpDeptSalgrade());
+		
+		return "emp/list7";
+	}
+	
 	@GetMapping("/list6")
 	public String list6(Model model) {
 		

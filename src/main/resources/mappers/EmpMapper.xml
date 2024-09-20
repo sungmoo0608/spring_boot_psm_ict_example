@@ -31,7 +31,7 @@
         ]]>
     </select>
 
-	<!-- ===================== 추천 방법 ============================== -->
+	<!-- ============================== 추천 방법 ============================== -->
 	
 	<resultMap id="deptMap" type="DeptVO">
 		<result property="deptno" column="deptno" />
@@ -64,6 +64,20 @@
     <select id="getEmpSalgrade" resultMap="empSalgradeMap">
        <![CDATA[
 			select * from emp e,  salgrade s where e.sal between s.losal and s.hisal
+		]]>
+    </select>
+    
+ 	<!-- ============================== 추천 방법 ============================== -->   
+    
+    <resultMap id="empDeptSalgradeMap" type="EmpDeptSalgradeVO">
+		<association property="emp" resultMap="empMap"></association>
+		<association property="dept" resultMap="deptMap"></association>
+		<association property="salGrade" resultMap="salgradeMap"></association>
+	</resultMap>
+
+    <select id="getEmpDeptSalgrade" resultMap="empDeptSalgradeMap">
+       <![CDATA[
+			select * from emp, dept, salgrade where dept.deptno = emp.deptno and (sal between losal and hisal) order by ename
 		]]>
     </select>
 	
