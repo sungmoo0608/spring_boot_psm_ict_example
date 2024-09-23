@@ -36,16 +36,6 @@ public class EmpController {
 		return "emp/list";
 	}
 	
-	@GetMapping("/index")
-	public String index(Model model) {
-		
-		log.info("index()..");
-		
-		model.addAttribute("empList",empService.getEmpDeptSalgrade());
-		
-		return "emp/index";
-	}
-	
 	@GetMapping("/list7")
 	public String list7(Model model) {
 		
