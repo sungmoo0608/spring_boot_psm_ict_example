@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판 리스트</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="eshopper/js/board.js"></script>
+
+<script type="text/javascript">
+
+
+
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+   //http://localhost:8282/rest_content_view.html?bid=24
+   let searchParams = new URLSearchParams(window.location.search)
+   console.log(searchParams.has('bid'));   
+   let bid = searchParams.get('bid')
+   
+   console.log(bid);
+   
+   function getBoard(board) {
+      console.log(board);
+         
+      $("#input_hidden").val(board.bid);
+         
+      $("#td_bid").text(board.bid);
+      $("#td_hit").text(board.bhit);
+      $("#input_bname").val(board.bname);
+      $("#input_btitle").val(board.btitle);
+      $("#textarea_bcontent").text(board.bcontent);         
+   }
+   
+   let board = boardService();
+   board.get(bid,getBoard);
+
+});
+</script>
+
+<script type="text/javascript">
+   $(document).ready(function (){
+      
+      $("#updateForm").submit(function(event){
+         //prevendDefault()는 href로 연결해 주지 않고 단순히 click에 대한 처리를 하도록 해준다.
+         
+         event.preventDefault();
+         console.log("ajax 호출전"); 
+         
+          var bname = $("#input_bname").val();
+          var btitle = $("#input_btitle").val();
+          var bcontent = $("#textarea_bcontent").text();
+          var bid = $("#input_hidden").val();
+          
+           var form = {
+                 bid: bid,
+                 bname: bname,
+                 btitle: btitle,
+                 bcontent: bcontent
+           };
+          
+         $.ajax({
+             type : "PUT",
+             url : "/boards/",
+             cashe:false,
+             contentType:'application/json; charset=utf-8',
+             data: JSON.stringify(form), 
+             success: function (result) {       
+					console.log(result); 
+                    
+					$(location).attr('href', '/boards/rest');  
+					//location.href = "/boards/rest";   
+             },
+             error: function (e) {
+                 console.log(e);
+             }
+         })
+          
+      });
+   });   
+</script>
+
+
+</head>
+
+<body>
+   <h1>글보기</h1>
+   
+   <table id="list-table" width="500" cellpadding="0" cellspacing="0" border="1">
+      <form id="updateForm" action="modify" method="post">
+         <input id="input_hidden" type="hidden" name="bid" value="">
+         <tr>
+            <td> 번호 </td>
+            <td id="td_bid">  </td>
+         </tr>
+         <tr>
+            <td> 히트 </td>
+            <td id="td_hit"> </td>
+         </tr>
+         <tr>
+            <td> 이름 </td>
+            <td> <input id="input_bname" type="text" name="bname" value=""></td>
+         </tr>
+         <tr>
+            <td> 제목 </td>
+            <td> <input id="input_btitle" type="text" name="btitle" value=""></td>
+         </tr>
+         <tr>
+            <td> 내용 </td>
+            <td> <textarea id="textarea_bcontent" rows="10" name="bcontent" ></textarea></td>
+         </tr>
+         <tr>
+            <td colspan="2"> <input id="input_modify" type="submit" value="수정"> &nbsp;&nbsp; <a href="list">목록보기</a> &nbsp;&nbsp; <a id="a-delete" href="${pageContext.request.contextPath}/rest/delete?bId=${content_view.bId}">삭제</a> &nbsp;&nbsp; <a href="reply_view?bId=${content_view.bId}">답변</a></td>
+         
+         </tr>
+      </form>
+   </table>
+
+</body>
+</html>

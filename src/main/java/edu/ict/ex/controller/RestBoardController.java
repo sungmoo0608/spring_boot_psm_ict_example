@@ -71,12 +71,12 @@ public class RestBoardController {
 		return boardVO;
 	}
 	
-	@GetMapping("/rest")	// 경로 변수
+	@GetMapping("/rest")	// 경로 변수 
 	public ModelAndView rest(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("rest/rest_list");
-		
-		return mv;
+		mv.setViewName("rest/rest_list2");
+				
+		return  mv;
 	}
 	
 	//	/boards/
