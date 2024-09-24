@@ -29,8 +29,7 @@ public class EmpService {
 
 		return empMapper.insert(empVO);
 	}
-
-
+	
 	public int getTotal() {            
 		return empMapper.getTotalCount();
 	}
@@ -48,5 +47,12 @@ public class EmpService {
 	//조인 처리 - 추천 방법2
 	public List<EmpDeptSalgradeVO> getEmpDeptSalgrade() {      
 		return empMapper.getEmpDeptSalgrade();
+	}
+	
+	//삭제 추가
+	public int delete(int empno){
+		System.out.println("remove() ..");
+
+		return empMapper.delete(empno);
 	}
 }

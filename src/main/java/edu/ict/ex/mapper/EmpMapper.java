@@ -19,6 +19,7 @@ public interface EmpMapper  {
 	public List<EmpVO> getList();
 	public int insert(EmpVO empVO);
 
+
 	//페이징 관련
 	int getTotalCount();
 	List<EmpVO> getListWithPaging(Criteria cri);
@@ -28,4 +29,7 @@ public interface EmpMapper  {
 	
 	//연습문제 join 처리 추천 방법2
 	List<EmpDeptSalgradeVO> getEmpDeptSalgrade();
+	
+	//삭제 추가
+	public int delete(int empno);
 }

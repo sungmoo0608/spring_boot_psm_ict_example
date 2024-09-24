@@ -15,6 +15,12 @@
 		]]> 
     </insert>
     
+    <delete id="delete">
+    	<![CDATA[
+    		delete from emp where empno = #{empno}
+    	]]>
+    </delete>
+    
     <select id="getTotalCount" resultType="int">
        <![CDATA[
            select count(*) from emp
