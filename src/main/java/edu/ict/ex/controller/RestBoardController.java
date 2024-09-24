@@ -74,7 +74,7 @@ public class RestBoardController {
 	@GetMapping("/rest")	// 경로 변수
 	public ModelAndView rest(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("rest/rest");
+		mv.setViewName("rest/rest_list");
 		
 		return mv;
 	}
