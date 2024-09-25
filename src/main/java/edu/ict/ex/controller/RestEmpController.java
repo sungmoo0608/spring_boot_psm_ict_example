@@ -37,6 +37,7 @@ public class RestEmpController {
 	
 	@GetMapping("/list")
 	public List<EmpVO> list(){
+		
 		log.info("list()...");
 		
 		return empService.getList();
