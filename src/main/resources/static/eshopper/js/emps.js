@@ -51,9 +51,30 @@ let empService = function(){
             });      
        }
    
+	function insert(emp){          
+
+       $.ajax({
+			type:"POST",
+			url: "/emps/",
+			contentType:'application/json; charset=utf-8',
+            data:JSON.stringify(emp),
+             success : function(result) {
+               
+               if(result == "SUCCESS")
+                   console.log(result);
+
+             },
+             error:function(e){
+                console.log(e);
+             }
+             
+          });      
+     }
+     
 
 	return {
 		list : list,
-		del : del
+		del : del,
+		insert : insert
 	}
 };

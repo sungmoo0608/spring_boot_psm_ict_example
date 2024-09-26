@@ -374,6 +374,12 @@ $(document).ready(function(){
 				$(pCard).find('.single-products').find('h2').text(this.sal+"$");
 				$(pCard).find('.single-products').find('p').text(this.ename);
 				$(pCard).find('.add-to-cart').html('<i class="fa fa-shopping-cart"></i>'+ this.empno);
+				
+				//랜덤 이미지 처리
+				//<img src="images/home/product1.jpg" alt="" />
+				const num = Math.floor(Math.random() * 6) + 1;
+				$(pCard).find('img').attr('src', 'images/home/product' + num + '.jpg');
+				
 				$("#f-items").append(pCard);
 				
             });

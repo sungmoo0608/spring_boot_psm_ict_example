@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		
 		//web.ignoring().regexMatchers(PathRequest.toStaticResources().atCommonLocations());
-		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/eshopper/**");	// 해당 폴더 접근은 막지 말라는 명령
+		//web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/eshopper/**");	// 해당 폴더 접근은 막지 말라는 명령
 		//web.ignoring().antMatchers("/**");	// 해당 폴더 접근은 막지 말라는 명령
 	}
 	
@@ -25,11 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
 		auth.inMemoryAuthentication()
-			.withUser("user").password("{noop}user").roles("USER")
-			.and()
-			.withUser("admin").password("{noop}admin").roles("ADMIN")
-			.and()
-			.withUser("manager").password("{noop}manager").roles("ADMIN");
+			.withUser("user").password("{noop}user").roles("USER").and()
+			.withUser("admin").password("{noop}admin").roles("ADMIN");
 	}
 	
 	/* 권한 설정 */

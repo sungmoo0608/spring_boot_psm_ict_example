@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EMP 리스트</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="eshopper/js/emps.js"></script> -->
+
+<script type="text/javascript">
+   $(document).ready(function (){
+      
+      $("#updateForm").submit(function(event){
+         //prevendDefault()는 href로 연결해 주지 않고 단순히 click에 대한 처리를 하도록 해준다.
+         
+         event.preventDefault();
+         console.log("ajax 호출전"); 
+         
+          var empno = $("#input_empno").val();
+          var ename = $("#input_ename").text();
+          var job = $("#input_job").text();
+          var mgr = $("#input_mgr").val();
+          var hiredate = $("#input_hiredate").text();   
+          var sal = $("#input_sal").val();
+          var comm = $("#input_comm").val();
+          var deptno = $("#input_deptno").val();   
+          
+			var form = {
+                 empno : empno,
+                 ename : ename,
+                 job : job,
+                 mgr : mgr,
+                 hiredate : hiredate,
+                 sal : sal,
+                 comm : comm,
+                 deptno : deptno
+			};
+          
+         $.ajax({
+             type : "POST",
+             url : "/emps/",
+             cashe:false,
+             contentType:'application/json; charset=utf-8',
+             data: JSON.stringify(form), 
+             success: function (result) {       
+					console.log(result); 
+                    
+					$(location).attr('href', '/emps/list');  
+					//location.href = "/emps/rest";   
+             },
+             error: function (e) {
+                 console.log(e);
+             }
+         })
+          
+      });
+   });   
+</script>
+
+
+<!--   <script type="text/javascript">
+$(document).ready(function(){
+
+   //http://localhost:8282/rest_content_view.html?bid=24
+   let searchParams = new URLSearchParams(window.location.search)
+   console.log(searchParams.has('empno'));   
+   let bid = searchParams.get('empno')
+   
+   console.log(empno);
+   
+   function getEmp(emp) {
+      console.log(board);
+         
+      $("#input_hidden").val(emp.empno);
+         
+      $("#input_empno").text(emp.empno);
+      $("#input_ename").text(emp.ename);
+      $("#input_job").text(emp.job);
+      $("#input_mgr").text(emp.mgr);
+      $("#input_hiredate").text(emp.hiredate);   
+      $("#input_sal").text(emp.sal);
+      $("#input_comm").text(emp.comm);
+      $("#input_deptno").text(emp.deptno);   
+   }
+   
+   let emp = empService();
+   emp.get(empno,getEmp);
+
+});
+
+</script>
+-->
+
+
+</head>
+<body>
+	<h1>Emp 리스트</h1>
+	
+	   
+   <table id="list-table" width="500" cellpadding="0" cellspacing="0" border="1">
+      <form id="updateForm" action="insert" method="post">
+         <input id="input_hidden" type="hidden" name="empno" value="">
+         <tr>
+            <td> 사원 번호 </td>
+            <td> <input id="input_empno" type="text" name="empno" value=""></td>
+         </tr>
+         <tr>
+            <td> 사원 이름 </td>
+            <td> <input id="input_ename" type="text" name="ename" value=""></td>
+         </tr>
+         <tr>
+            <td> 직급 </td>
+            <td> <input id="input_job" type="text" name="job" value=""></td>
+         </tr>
+         <tr>
+            <td> 매니저 </td>
+            <td> <input id="input_mgr" type="text" name="mgr" value=""></td>
+         </tr>
+         <tr>
+            <td> 입사일자 </td>
+            <td> <input id="input_hiredate" type="text" name="hiredate" value=""></td>
+         </tr>
+         <tr>
+            <td> 월급 </td>
+            <td> <input id="input_sal" type="text" name="sal" value=""></td>
+         </tr>
+         <tr>
+            <td> 보너스 </td>
+            <td> <input id="input_comm" type="text" name="comm" value=""></td>
+         </tr>
+		<tr>
+            <td> 부서번호 </td>
+            <td> <input id="input_deptno" type="text" name="deptno" value=""></td>
+         </tr>
+         <tr>
+            <td colspan="2"> <input id="input_insert" type="submit" value="추가"></td>
+         </tr>
+      </form>
+   </table>
+
+	
+	
+</body>
+</html>

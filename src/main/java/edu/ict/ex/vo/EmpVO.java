@@ -35,5 +35,5 @@ public class EmpVO  {
 	private int sal;
 	private int comm;
 	private int deptno;
-
+	
 }

@@ -7,10 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.ict.ex.service.EmpService;
+import edu.ict.ex.vo.BoardVO;
 import edu.ict.ex.vo.EmpVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,7 +50,7 @@ public class RestEmpController {
 	public ResponseEntity<String> delete(EmpVO emp){
 		
 		log.info("delete..");
-		log.info("board" + emp);
+		log.info("emp" + emp);
 		
 		ResponseEntity<String> entity = null;
 		
@@ -67,4 +70,24 @@ public class RestEmpController {
 		
 		return entity;
 	}
+	
+	@PostMapping("/")	// 경로 변수
+	public ResponseEntity<String> insert(@RequestBody EmpVO emp){
+		
+		log.info("insert..");
+		log.info("emp" + emp);
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			empService.insert(emp);
+			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
 }

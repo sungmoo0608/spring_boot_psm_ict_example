@@ -78,3 +78,21 @@ home.jsp를 제대로 만들고, 아래와 같이 설정하여 / 로 접속후 h
 		.antMatchers("/**").permitAll();      
 		}
 
+
+=====================================================================================================
+
+스텝 5.
+
+## 기본 로그인 폼을 사용 하기 위한 설정
+	protected void configure(HttpSecurity http) throws Exception {
+		//우선 CSRF설정을 해제한다.
+		//초기 개발시만 해주는게 좋다.
+		http.csrf().disable();
+      
+		http.authorizeRequests()
+		.antMatchers("/user/**").hasAnyRole("USER") 
+		.antMatchers("/admin/**").hasAnyRole("ADMIN")
+		.antMatchers("/**").permitAll();
+			      
+		http.formLogin(); //스프링 시큐리티에 있는 기본 로그인 폼을 사용하겠다.
+		
