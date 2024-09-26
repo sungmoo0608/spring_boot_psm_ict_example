@@ -101,5 +101,19 @@ home.jsp를 제대로 만들고, 아래와 같이 설정하여 / 로 접속후 h
 
 스텝 6.
 
-## DB 작업 및 
+## DB 작업 및 UserMapper 생성
+
+
+=====================================================================================================
+
+스텝 7.
+
+## 로그인 페이지 커스텀 마이징
+
+	//로그인 폼 커스텀 마이징
+	http.formLogin()
+		.loginPage("/login")	//loginPage()는 말그대로 로그인할 페이지 url이고
+		.usernameParameter("id")
+		.usernameParameter("pw")
+		.defaultSuccessUrl(".");
 		

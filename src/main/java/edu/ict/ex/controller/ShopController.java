@@ -28,4 +28,13 @@ public class ShopController {
 		return "eshopper/index";
 	}
 	
+	@GetMapping("/login")
+	public String login(Model model) {
+		
+		log.info("login()..");
+		
+
+		
+		return "eshopper/login";
+	}
 }
