@@ -1,5 +1,6 @@
 package edu.ict.ex.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,9 +11,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import edu.ict.ex.security.CustomUserDetailsService;
+
 @Configuration		//@Component + 설정
 @EnableWebSecurity	//필터 등록 = 시큐리티 설정 파일이다 라고 알려주는 역할
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
 
 	/* 정적 리소스 폴더 처리 */
 	@Override
@@ -27,9 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		auth.inMemoryAuthentication()
-			.withUser("user").password("{noop}user").roles("USER").and()
-			.withUser("admin").password("{noop}admin").roles("ADMIN");
+//		auth.inMemoryAuthentication()
+//			.withUser("user").password("{noop}user").roles("USER").and()
+//			.withUser("admin").password("{noop}admin").roles("ADMIN");
+		
+		auth.userDetailsService(customUserDetailsService)
+		.passwordEncoder(passwordEncoder());
+		
 	}
 	
 	/* 권한 설정 */
@@ -49,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         	.loginPage("/eshopper/login")  //loginPage() 는 말그대로 로그인할 페이지 url 이고
             .usernameParameter("id")
             .passwordParameter("pw")
-            .defaultSuccessUrl("/");
+            .defaultSuccessUrl("/eshopper/index");
 
 	}
 	
