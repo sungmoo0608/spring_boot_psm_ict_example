@@ -57,10 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		//로그인 폼 커스텀 마이징
         http.formLogin()
-        	.loginPage("/eshopper/login")  //loginPage() 는 말그대로 로그인할 페이지 url 이고
+        	.loginPage("/login")  //loginPage() 는 말그대로 로그인할 페이지 url 이고
             .usernameParameter("id")
             .passwordParameter("pw")
-            .defaultSuccessUrl("/eshopper/index");
+            .defaultSuccessUrl("/");
 
 	}
 	

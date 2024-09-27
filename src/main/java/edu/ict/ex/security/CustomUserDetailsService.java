@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import edu.ict.ex.mapper.UserMapper;
+import edu.ict.ex.vo.CartVO;
 import edu.ict.ex.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 		log.warn("queried by UserVO mapper : " + user);
 		
-		return user == null? null:new UserDetailsVO(user);
+		return user == null? null:new UserDetailsVO(user,new CartVO());
 		
 	}
 	

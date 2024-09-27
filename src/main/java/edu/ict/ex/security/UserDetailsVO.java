@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import edu.ict.ex.vo.AuthVO;
+import edu.ict.ex.vo.CartVO;
 import edu.ict.ex.vo.UserVO;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -17,33 +18,49 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Setter
 public class UserDetailsVO implements UserDetails {
-	
+
 	private String username;
 	private String password;
 	private List<GrantedAuthority> authorities;
 	
+	private CartVO cart;
+
 	public UserDetailsVO(UserVO user) {
 		this.username = user.getUsername();
 		this.setPassword(user.getPassword());
-		this.setAuthorities(user);
+		this.setAuthorities(user);      
 	}
 	
-	//UserVO에서 권한을 추출하여 UserDetails에서 요구하는 권한 형식으로 만들어줌 
+	public UserDetailsVO(UserVO user,CartVO cart) {
+		this.username = user.getUsername();
+		this.setPassword(user.getPassword());
+		this.setAuthorities(user);      
+		
+		this.cart = cart;
+	}
+	
+	public CartVO getCart() {
+		return cart;
+	}
+
+
+	//UserVO 에서 권한을 추출하여 UserDetails에서 요구 하는 권한 형식으로 만들어줌
 	public void setAuthorities(UserVO userVO) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
+
 		for(AuthVO authVO : userVO.getAuthList()) {
 			authorities.add(new SimpleGrantedAuthority(authVO.getAuthority()));
 		}
-		
-		this.authorities = authorities;
+
+		this.authorities = authorities;      
 	}
-	
-	
+
+
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
-		return null;
+		return this.authorities;
 	}
 
 	@Override
@@ -78,13 +95,13 @@ public class UserDetailsVO implements UserDetails {
 
 		return true;
 	}
-	
+
 	// 계정이 활성화 되었는가?
 	@Override
 	public boolean isEnabled() {
 
 		return true;
 	}
-	
-	
+
+
 }
