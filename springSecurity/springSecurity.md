@@ -271,6 +271,49 @@ UserDetails 와 UserDetailsService 를 구현하여 완성
 		
 	}
 
+=====================================================================================================
 
+스텝 10. 
 
+## 시큐리티 태그 활용 및 세션
+
+태그라이브러리 사용하기 위해서 아래의 추가
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="s" %>
+
+표현식                              설명
+hasRole('role')   해당 권한이 있을 경우
+hasAnyRole('role1,'role2')   포함된 권한 중 하나라도 있을 경우
+isAuthenticated()   권한에 관계없이 로그인 인증을 받은 경우
+isFullyAuthenticated()   권한에 관계없이 인증에 성공했고, 자동 로그인이 비활성인 경우
+isAnonymous()   권한이 없는 익명의 사용자일 경우
+isRememberMe()   자동 로그인을 사용하는 경우
+permitAll   모든 경우 출력함
+denyAll   모든 경우 출력하지 않음
+
+	권한에 따른 조건문
+	
+	<!-- 표현식이 지정한 권한에 맞을 때만 출력 -->
+	<sec:authorize access="isAnonymous()">
+	   로그인
+	   회원가입
+	</sec:authorize>
+	
+	<sec:authorize access="isAuthenticated()">
+	   로그아웃
+	   회원정보보기
+	</sec:authorize>
+	
+	<sec:authorize access="hasRole('admin')">
+	  관리자 페이지
+	</sec:authorize>
+	
+	
+	
+	[ 사용자 정보 확인 ]
+	
+	<s:authentication property="principal" var="user"/> 
+	타입 : ${user} <br>
+	ID : ${user.username} <br>
+	PW : ${user.password}
+	</s:authorize>
 

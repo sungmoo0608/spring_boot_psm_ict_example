@@ -22,25 +22,32 @@ public class UserDetailsVO implements UserDetails {
 	private String username;
 	private String password;
 	private List<GrantedAuthority> authorities;
+	private String email;
 	
 	private CartVO cart;
 
 	public UserDetailsVO(UserVO user) {
 		this.username = user.getUsername();
 		this.setPassword(user.getPassword());
-		this.setAuthorities(user);      
+		this.setAuthorities(user);
+		
 	}
 	
 	public UserDetailsVO(UserVO user,CartVO cart) {
 		this.username = user.getUsername();
 		this.setPassword(user.getPassword());
-		this.setAuthorities(user);      
+		this.setAuthorities(user);     
+		this.email = user.getEmail();
 		
 		this.cart = cart;
 	}
 	
 	public CartVO getCart() {
 		return cart;
+	}
+	
+	public String getEmail() {
+		return email;
 	}
 
 
