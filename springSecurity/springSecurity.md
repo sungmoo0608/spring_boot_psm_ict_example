@@ -165,3 +165,112 @@ PasswordEncoder라는 인터페이스의 구현체로 BCryptPasswordEncoder, Arg
 스텝 9.
 
 ## 이제 DB와 연결하여, 시큐리티를 커스텀 마이징 해보자.
+
+UserDetails 와 UserDetailsService 를 구현하여 완성
+
+	UserDetailsVO
+	
+		// 알렉스 아저씨가 말해주는 넣어줘야 할 포맷형식
+		@Slf4j
+		@Setter
+		public class UserDetailsVO implements UserDetails {
+		
+		private String username;
+		private String password;
+		private List<GrantedAuthority> authorities;
+		
+		public UserDetailsVO(UserVO user) {
+			this.username = user.getUsername();
+			this.setPassword(user.getPassword());
+			this.setAuthorities(user);
+		}
+		
+		//UserVO에서 권한을 추출하여 UserDetails에서 요구하는 권한 형식으로 만들어줌 
+		public void setAuthorities(UserVO userVO) {
+			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+			
+			for(AuthVO authVO : userVO.getAuthList()) {
+				authorities.add(new SimpleGrantedAuthority(authVO.getAuthority()));
+			}
+			
+			this.authorities = authorities;
+		}
+		
+		
+		@Override
+		public Collection<? extends GrantedAuthority> getAuthorities() {
+	
+			return null;
+		}
+	
+		@Override
+		public String getPassword() {
+	
+			return this.password;
+		}
+	
+		@Override
+		public String getUsername() {
+	
+			return this.username;
+		}
+	
+		// 계정이 만료 되지 않았는가?
+		@Override
+		public boolean isAccountNonExpired() {
+	
+			return true;
+		}
+	
+		// 계정이 잠기지 않았는가?
+		@Override
+		public boolean isAccountNonLocked() {
+	
+			return true;
+		}
+	
+		// 패스워드가 만료되지 않았는가?
+		@Override
+		public boolean isCredentialsNonExpired() {
+	
+			return true;
+		}
+		
+		// 계정이 활성화 되었는가?
+		@Override
+		public boolean isEnabled() {
+	
+			return true;
+		}
+		
+	}
+		
+	CustomUserDetailsService
+	
+		//알렉스 아저씨가 말하는 user 정보를 주고 받기 위한 Fax
+		@Slf4j
+		@Service
+		public class CustomUserDetailsService implements UserDetailsService {
+	
+		@Autowired
+		private UserMapper userMapper;
+		
+		
+		@Override
+		public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+			
+			log.warn("Load User By UserVO user : " + username);
+			
+			UserVO user = userMapper.getUser(username);
+			
+			log.warn("queried by UserVO mapper : " + user);
+			
+			return user == null? null:new UserDetailsVO(user);
+			
+		}
+		
+	}
+
+
+
+
