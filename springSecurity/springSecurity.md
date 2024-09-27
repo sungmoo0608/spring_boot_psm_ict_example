@@ -36,9 +36,9 @@ Your security configuration must be updated before running your application in p
 ==================================================================================
 
 스텝 2
-   이미지(가영이)가 보이지 않는다.
-   우선 정적파일들은 시큐리티에 적용되지 않도록 아래와 같이 설정을 한다.
-   이제 더이상 리소스파일들은 스프링 시큐리티에서 관리를 하지 않는다.   
+이미지(가영이)가 보이지 않는다.
+우선 정적파일들은 시큐리티에 적용되지 않도록 아래와 같이 설정을 한다.
+이제 더이상 리소스파일들은 스프링 시큐리티에서 관리를 하지 않는다.   
 
 
 	@Override
@@ -115,5 +115,53 @@ home.jsp를 제대로 만들고, 아래와 같이 설정하여 / 로 접속후 h
 		.loginPage("/login")	//loginPage()는 말그대로 로그인할 페이지 url이고
 		.usernameParameter("id")
 		.usernameParameter("pw")
-		.defaultSuccessUrl(".");
+		.defaultSuccessUrl("/");
 		
+		
+=====================================================================================================
+
+스텝 8.
+
+## 패스워드 암호화 저장
+
+암호화 모듈 종류 참고사이트
+https://velog.io/@hyeinisfree/SpringSecurity-PasswordEncoder
+
+PasswordEncoders
+Spring Security는 PasswordEncoder라는 인터페이스를 이용해 암호가 안전하게 저장될 수 있도록 암호의 단방향 변환을 지원합니다. 
+PasswordEncoder라는 인터페이스의 구현체로 BCryptPasswordEncoder, Argon2PasswordEncoder, Pbkdf2PasswordEncoder, SCryptPasswordEncoder 등 많은 PasswordEncoder가 있습니다. 
+
+
+	@Test
+	void testInsertUser() {
+		
+		UserVO user = new UserVO();
+		user.setUsername("admin2");
+		user.setPassword(passwordEncoder.encode("admin2"));
+		user.setEnabled("1");
+		
+		userMapper.insertUser(user);
+		userMapper.insertAuthorities(user);
+		
+		assertNotNull(user);
+		
+		System.out.println(user);
+	}
+	
+	@Test
+	void testMatcher() {
+		
+		UserVO user = userMapper.getUser("admin2");
+		//$2a$10$vLzYKr1RGSZ684fO4JESzukCGEUz6OJEcvAmwi06Krehcbry8L9zC
+		boolean isMatch = passwordEncoder.matches("admin2", user.getPassword());
+		
+		System.out.println(user.getPassword());
+		assertEquals(isMatch, true);	
+	}
+	
+	
+=====================================================================================================
+
+스텝 9.
+
+## 이제 DB와 연결하여, 시큐리티를 커스텀 마이징 해보자.
