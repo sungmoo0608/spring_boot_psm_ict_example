@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//우선 CSRF설정을 해제한다.
 		//초기 개발시만 해주는게 좋다.
 		
-		//http.csrf(csrf -> csrf.disable());
+		http.csrf(csrf -> csrf.disable());
 	      
 		http.authorizeHttpRequests()
 		.antMatchers("/board/**").hasAnyRole("USER") 
