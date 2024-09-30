@@ -31,7 +31,7 @@ Using generated security password: 0d07e7fd-0fba-403d-9eff-149ac84f4d56
 This generated password is for development use only. 
 Your security configuration must be updated before running your application in production.
 
-### 스프링 시큐리티(알렉스 아저시) 인증 방식은 세션,쿠키 방식 임
+## 스프링 시큐리티(알렉스 아저시) 인증 방식은 세션,쿠키 방식 임
 
 ==================================================================================
 
@@ -317,3 +317,12 @@ denyAll   모든 경우 출력하지 않음
 	PW : ${user.password}
 	</s:authorize>
 
+
+=====================================================================================================
+
+스텝 11. 
+
+## CSRF란?
+참고 : https://luckyguystory.tistory.com/208
+
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
