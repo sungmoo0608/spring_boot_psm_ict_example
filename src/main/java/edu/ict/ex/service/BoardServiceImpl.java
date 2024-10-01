@@ -51,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
 
 		log.info("writeBoard()..");
 		
-		return boardMapper.intsertBoard(board);
+		return boardMapper.insertBoard(board);
 	}
 	
 	@Override

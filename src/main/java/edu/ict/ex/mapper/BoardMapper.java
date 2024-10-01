@@ -19,9 +19,9 @@ public interface BoardMapper  {
 	int delete(int bno); 
 
 	//게시판 insert
-	int intsertBoard(@Param("board") BoardVO boardVO);
+	int insertBoard(@Param("board") BoardVO boardVO);
 	//2개 이상 불러올떄
-	//int intsertBoard(@Param("board") BoardVO boardVO, @Param("emp") EmpVO empVO);
+	//int insertBoard(@Param("board") BoardVO boardVO, @Param("emp") EmpVO empVO);
 	
 	//게시판 update
 	int updateBoard(BoardVO boardVO);
